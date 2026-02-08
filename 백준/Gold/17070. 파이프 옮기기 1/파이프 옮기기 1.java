@@ -1,5 +1,4 @@
 
-
 import java.io.*;
 import java.util.*;
 
@@ -26,26 +25,28 @@ public class Main {
 		System.out.println(cnt);
 	}
 
-	static void dfs(int r, int c, int d) {
-		if (r == T - 1 && c == T - 1) {
-			cnt++;
+	static void dfs(int r, int c, int d) { // 하 우하 우
+		if(r == T-1 && c == T-1) {
+			cnt ++;
 			return;
 		}
-		
-		for (int i = 0; i < 3; i++) {
-			int nr = r + dr[i];
+		for(int i=0; i<3; i++) {
+			if(d == 2 && i ==0) continue;
+			if(d == 0 && i ==2) continue;
+			int nr = r+dr[i];
 			int nc = c + dc[i];
 			
-			if (d == 0 && i == 2) continue;
-			if(d == 2 && i == 0) continue;
-			if (nr >= 0 && nr < T && nc >= 0 && nc < T && !v[nr][nc] && arr[nr][nc] == 0) {
-				if(i ==1) {
-					if(arr[r+1][c] == 1 || arr[r][c+1] == 1 || arr[r+1][c+1] == 1) continue;
+			if(nr >=0 && nr<T && nc >=0 && nc <T && arr[nr][nc] == 0) {
+				if(i == 1) {
+					if(arr[r][c+1] == 1 || arr[r+1][c] == 1 || arr[r+1][c+1] == 1) continue;
 				}
-				v[nr][nc] = true;
-				dfs(nr,nc, i);
-				v[nr][nc] = false;
+				if(!v[nr][nc]) {
+					v[nr][nc] = true;
+					dfs(nr,nc,i);
+					v[nr][nc] = false;
+				}
 			}
 		}
+		
 	}
 }
