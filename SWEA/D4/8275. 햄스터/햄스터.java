@@ -53,12 +53,6 @@ public class Solution {
             if (check()) {
                 int sum = 0;
                 for (int i = 0; i < N; i++) sum += arr[i];
-                if(sum == max) {
-                	if(change(ans, arr)) {
-                		ans = arr.clone();
-                	}
-                }
-                
                 if (sum > max) {
                     max = sum;
                     ans = arr.clone();
@@ -84,11 +78,4 @@ public class Solution {
         return true;
     }
     
-    
-    static boolean change(int a[], int b[]) {
-    	for(int i=0; i<ans.length; i++) {
-    		if(a[i] != b[i]) return a[i] >b[i]; 
-    	}
-    	return false;
-    }
 }
