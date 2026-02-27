@@ -21,8 +21,8 @@ public class Main {
 		ans = Integer.MAX_VALUE;
 		ca = new int[6];
 
-		dfs(0,0);
-		if(ans == Integer.MAX_VALUE) {
+		dfs(0, 0);
+		if (ans == Integer.MAX_VALUE) {
 			ans = -1;
 		}
 		System.out.println(ans);
@@ -30,72 +30,65 @@ public class Main {
 
 	static void dfs(int r, int c) {
 		int tmp = 0;
-		for(int i=1; i<=5; i++) {
+		for (int i = 1; i <= 5; i++) {
 			tmp += ca[i];
 		}
-		if(tmp >= ans) return;
+		if (tmp >= ans)
+			return;
 		int nr = -1;
 		int nc = -1;
-		for(int i=0; i<10; i++) {
-			for(int j=0; j<10; j++) {
-				if(arr[i][j] == 1) {
-					nr =i;
-					nc =j;
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (arr[i][j] == 1) {
+					nr = i;
+					nc = j;
 					break;
 				}
 			}
-			if(nr != -1) break;
+			if (nr != -1)
+				break;
 		}
-		
-		if(nr == -1) {
+
+		if (nr == -1) {
 			ans = Math.min(ans, tmp);
 			return;
 		}
-		
-		for(int k=1; k<=5; k++) {
+
+		for (int k = 1; k <= 5; k++) {
 			if (nr + k > 10 || nc + k > 10)
 				continue;
 			if (ca[k] >= 5)
 				continue;
 			boolean ch = false;
-			for(int i=nr; i<nr +k; i++) {
-				for(int j=nc; j <nc+k; j++) {
-					if(arr[i][j] == 0) {
+			for (int i = nr; i < nr + k; i++) {
+				for (int j = nc; j < nc + k; j++) {
+					if (arr[i][j] == 0) {
 						ch = true;
 						break;
 					}
 				}
-				if(ch) break;
+				if (ch)
+					break;
 			}
-			if(ch) continue;
-			
-			for(int i=nr; i<nr +k; i++) {
-				for(int j=nc; j <nc+k; j++) {
+			if (ch)
+				continue;
+
+			for (int i = nr; i < nr + k; i++) {
+				for (int j = nc; j < nc + k; j++) {
 					arr[i][j] = 0;
 				}
 			}
-			ca[k] ++;
-			dfs(nr,nc);
-			
-			for(int i=nr; i<nr +k; i++) {
-				for(int j=nc; j <nc+k; j++) {
+			ca[k]++;
+			dfs(nr, nc);
+
+			for (int i = nr; i < nr + k; i++) {
+				for (int j = nc; j < nc + k; j++) {
 					arr[i][j] = 1;
 				}
 			}
-			ca[k] --;
+			ca[k]--;
 		}
-		
-		
+
 	}
 
-	static boolean check() {
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				if (arr[i][j] == 1) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
 }
