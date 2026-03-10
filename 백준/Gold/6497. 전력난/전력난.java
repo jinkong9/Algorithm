@@ -1,0 +1,59 @@
+
+import java.io.*;
+import java.util.*;
+public class Main {
+	static int N,M, parent[];
+	static int find(int a) {
+		if(a == parent[a]) return a;
+		return parent[a] = find(parent[a]);
+	}
+	static void union(int a, int b) {
+		a = find(a);
+		b = find(b);
+		if(a != b) {
+			parent[a] = b;
+		}
+	}
+	static class Ver {
+		int from, to, w;
+		Ver(int from, int to, int w) {
+			this.from = from;
+			this.to = to;
+			this.w = w;
+		}
+	}
+	static ArrayList<Ver> list;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		while(true) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			if(N == 0 && M == 0) System.exit(0);
+			parent = new int[N];
+			for(int i=0; i<N; i++) parent[i] = i;
+			list = new ArrayList<>();
+			int tmp = 0;
+			for(int i=0; i<M; i++) {
+				st = new StringTokenizer(br.readLine());
+				int x = Integer.parseInt(st.nextToken());
+				int y = Integer.parseInt(st.nextToken());
+				int w = Integer.parseInt(st.nextToken());
+				tmp += w;
+				list.add(new Ver(x,y,w));
+			}
+			
+			Collections.sort(list , (a,b) -> a.w - b.w);
+			int sum  =0;
+			for(Ver v : list) {
+				if(find(v.from) != find(v.to)) {
+					union(v.from, v.to);
+					sum += v.w;
+				}
+			}
+			System.out.println(tmp-sum);
+			
+		}
+	}
+
+}
