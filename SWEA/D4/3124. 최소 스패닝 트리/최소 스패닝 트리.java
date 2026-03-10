@@ -62,10 +62,13 @@ public class Solution {
             Collections.sort(list, (a,b) -> a.w - b.w);
 
             long sum = 0;
+            int cnt = 0;
             for(Ver v : list){
                 if(find(v.from) != find(v.to)){
                 	union(v.from,v.to);
                 	sum += v.w;
+                    cnt ++;
+                    if(cnt == N-1) break;
                 }
             }
 
