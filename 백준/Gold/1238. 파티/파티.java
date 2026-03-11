@@ -50,7 +50,6 @@ public class Main {
 	
 	static int [] dijkstra1(int start) { // X에서 처음으로
 		PriorityQueue<Ver> Q = new PriorityQueue<>();
-		boolean check[] = new boolean[N+1];
 		int dist[] = new int[N+1];
 		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[start] = 0;
@@ -59,8 +58,8 @@ public class Main {
 		
 		while(!Q.isEmpty()) {
 			Ver now = Q.poll();
-			if(check[now.to]) continue;
-			check[now.to] = true;
+			
+			if(now.w > dist[now.to]) continue;
 			
 			for(Ver next : list[now.to]) {
 				if(dist[next.to] > dist[now.to] + next.w) {
@@ -74,7 +73,6 @@ public class Main {
 	
 	static int [] dijkstra(int start) { // 처음에서 X로
 		PriorityQueue<Ver> Q = new PriorityQueue<>();
-		boolean check[] = new boolean[N+1];
 		int dist[] = new int[N+1];
 		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[start] = 0;
@@ -83,8 +81,8 @@ public class Main {
 		
 		while(!Q.isEmpty()) {
 			Ver now = Q.poll();
-			if(check[now.to]) continue;
-			check[now.to] = true;
+			
+			if(now.w > dist[now.to]) continue;
 			
 			for(Ver next : rlist[now.to]) {
 				if(dist[next.to] > dist[now.to] + next.w) {
