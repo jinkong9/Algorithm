@@ -12,37 +12,38 @@ public class Main {
 		
 		int arr[] = new int[N];
 		for(int i=0; i<N; i++) {
-			arr[i] = Integer.parseInt(br.readLine());
+			st = new StringTokenizer(br.readLine());
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		int cnt[] = new int[d+1];
+		int ans = 0;
+		
+		for(int i=0; i<k; i++) {
+			if(cnt[arr[i]] ==0) ans ++;
+			cnt[arr[i]] ++;
 		}
 		
 		int idx1 = 0;
-		int idx2 = 0;
-		int ans = 0;
-		int cnt[] = new int[d+1];
+		int idx2 = k;
 		
-		int tt = 0;
-		while(tt < k) {
-			if(cnt[arr[idx2]] == 0) ans ++;
-			cnt[arr[idx2]] ++;
-			idx2 = (idx2 + 1) % N;
-			tt ++;
-		}
 		int max = 0;
-		int ttt = 0;
-		while(ttt < N) {
+		
+		while(idx1 < N) {
 			int tmp = ans;
 			if(cnt[c] == 0) tmp ++;
 			max = Math.max(max, tmp);
 			
+			// if(max == k+1) break; 최적화
+			
 			cnt[arr[idx1]] --;
 			if(cnt[arr[idx1]] == 0) ans --;
-			idx1 = (idx1 +1) % N;
+			idx1 ++;
 			
-			if(cnt[arr[idx2]] == 0) ans ++;
-			cnt[arr[idx2]] ++;
-			idx2 = (idx2 + 1) % N;
+			if(cnt[arr[idx2 % N]] == 0) ans ++;
+			cnt[arr[idx2 % N]] ++;
+			idx2 ++;
 			
-			ttt ++;
 		}
 		System.out.println(max);
 	}
