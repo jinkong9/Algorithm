@@ -1,26 +1,47 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 class Solution {
-    static Set<Integer> list = new HashSet<>();
+    static int len;
+    static String str;
+    static boolean v[];
+    static HashSet <Integer> set = new HashSet<>();
     public int solution(String numbers) {
-        int num[] = new int[numbers.length()];
-		boolean[] v = new boolean[numbers.length()];
-		
-		for(int i=0; i<numbers.length(); i++) {
-			num[i] = numbers.charAt(i) - '0';
-		}
-		dfs(num, "", v);
-		
-		int cnt=0;
-		for (int n : list) {
-			if(isPrime(n)) {
-				cnt++;
-			}
-		}
-        return cnt;
+        int answer = 0;
+        str = numbers;
+        len = str.length();
+        v = new boolean [len];
+        int arr[] = new int[len];
+        for(int i=0; i<len; i++ ) {
+            arr[i] = str.charAt(i) - '0';
+        }
+        
+        dfs(arr, "", 0);
+        
+        for(int i : set) {
+            if(isPrime(i)) {
+                answer ++;
+            }
+        }
+        
+        return answer;
     }
     
+    public static void dfs(int arr[], String s, int idx) {
+        if(s.length() > 0) {
+                System.out.println(s);
+                set.add(Integer.parseInt(s));    
+        }
+        
+        for(int i=0; i<len; i++) {
+            if(!v[i]) {
+                v[i] = true;
+                dfs(arr, s + arr[i], idx +1);
+                v[i] = false;
+            }
+        }
+        
+    }
     public static boolean isPrime(int n) {
 	    if (n <= 1) return false;
 	    for (int i = 2; i <= Math.sqrt(n); i++) {
@@ -28,19 +49,4 @@ class Solution {
 	    }
 	    return true;
 	}
-	
-	public static void dfs(int[] arr, String cur, boolean[] v) {
-		if(cur.length() > 0) {
-			list.add(Integer.parseInt(cur));
-		}
-		for(int i=0; i<arr.length; i++) {
-			if(!v[i]) {
-				v[i] = true;
-				dfs(arr, cur+arr[i], v);
-				v[i] = false;
-			}
-		}
-		
-	}
-    
 }
