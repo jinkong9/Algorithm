@@ -1,27 +1,18 @@
-import java.io.*;
-import java.util.*;
 class Solution {
-    static int B,Y;
     public int[] solution(int brown, int yellow) {
-        B = brown;
-        Y = yellow;
-        int aa = B+Y;
-        int a = 0;
-        int b = 0;
-        for(int w = aa-1; w > 0; w-- ) {
-            if(aa % w != 0)  continue;
-            
-            int h = aa / w;
-            int tt = (h -2) * (w -2);
-            int ttt = aa - tt;
-            
-            if(tt == yellow && ttt == brown) {
-                a = w;
-                b = h;
-            }
-        }
+        int[] answer = new int[2];
         
-        int answer[] = {b,a};
+        int sum = brown + yellow;
+        
+        for(int i=3; i<sum / 2; i++) {
+            int col = i;
+            int row = sum / i;
+            
+            if((col - 2) * (row - 2) == yellow) {
+                answer[0] = col;
+                answer[1] = row;
+            }
+        }        
         return answer;
     }
 }
